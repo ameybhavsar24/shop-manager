@@ -7,8 +7,8 @@
     </ul>
   </div>
 </nav>
-
 <ul class="sidenav" id="mobile-demo">
-  <li><a href="sass.html">About</a></li>
+  <li><?= $_SESSION['name'] ?></li>
+  <li><a href="logout.php">Logout</a></li>
 </ul>
 

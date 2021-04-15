@@ -1,13 +1,15 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
   // Initialize session
   session_start();
-
   // Check if user is already logged in, if yes redirect to dashboard
   if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    header("location: dashboard.php");
+    header("location: index.php");
     exit;
   }
-  require_once("../db.php");
+  require_once("db.php");
   $email = $password = "";
   $email_err = $password_err = "";
   $check_errors = true;
@@ -45,7 +47,7 @@
                 $_SESSION["name"] = $name;
                 $_SESSION["email"] = $email;
 
-                header('location: dashboard.php');
+                header('location: index.php');
 
               } else {
                 $password_err = "The password you entered was incorrect.";

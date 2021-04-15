@@ -1,24 +1,27 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
   session_start();
   if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    header("location: dashboard.php");
+    header("location: index.php");
     exit;
   }
-  require_once("../db.php");
+  require_once("./db.php");
 
-  $name = $email = $password = $confirm_password = "";
-  $name_err = $email_err = $password_err = $confirm_password_err = "";
+  $name = $email = $password = "";
+  $name_err = $email_err = $password_err = "";
   $check_errors = true;
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // validate email
-    if (empty(trim($_POST["email"]))) {
+    if (empty(trim($_POST["email_register"]))) {
       $email_err = "Please enter a email.";
     } else {
       // prepare a select statement
       $sql = "SELECT id FROM users WHERE email = ?";
       if ($stmt = $mysqli->prepare($sql)) {
         // bind variables to prepared statement as parameters
-        $param_email = trim($_POST["email"]);
+        $param_email = trim($_POST["email_register"]);
         $stmt->bind_param("s", $param_email);
 
         // attempt to execute the prepared statement
@@ -26,10 +29,9 @@
           // store result
           $stmt->store_result();
           if ($stmt->num_rows == 1) {
-
             $email_err = "This email already exists";
           } else {
-            $email = $mysqli->real_escape_string(trim($_POST["email"]));
+            $email = $mysqli->real_escape_string(trim($_POST["email_register"]));
           }
         } else {
           echo "<script>alert('Oops! Something went wrong. Please try again later.')</script>";
@@ -41,33 +43,20 @@
     }
 
     // validate name
-    if (empty(trim($_POST["name"]))) {
+    if (empty(trim($_POST["name_register"]))) {
       $name_err = "Please enter your name.";
     } else {
-      $name = $mysqli->real_escape_string(trim($_POST["name"]));
+      $name = $mysqli->real_escape_string(trim($_POST["name_register"]));
     }
 
     // validate password
-    if (empty(trim($_POST["password"]))) {
+    if (empty(trim($_POST["password_register"]))) {
       $password_err = "Please enter a password.";
-    } else if (strlen(trim($_POST["password"])) < 6) {
-      $password_err = "Password must have atleast 6 characters.";
     } else {
-      $password = $mysqli->real_escape_string(trim($_POST["password"]));
+      $password = $mysqli->real_escape_string(trim($_POST["password_register"]));
     }
 
-    // validate confirm password
-    if (empty(trim($_POST["confirm_password"]))) {
-      $confirm_password_err = "Please confirm your password.";
-    } else {
-      $confirm_password = $mysqli->real_escape_string(trim($_POST["confirm_password"]));
-      if (empty($password_err) && ($password != $confirm_password)) {
-        $confirm_password_err = "Passwords did not match.";
-      }
-    }
-
-    $check_errors = empty($email_err) && empty($password_err) && empty($name_err) && empty($confirm_password_err);
-
+    $check_errors = empty($email_err) && empty($password_err) && empty($name_err);
     if ($check_errors) {
       // insert new user to database
       $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
@@ -80,14 +69,20 @@
 
         // Attempt to exectute the prepared statement
         if ($stmt->execute()) {
-          header("location: login.php?status=1");
+          session_start();
+          $_SESSION["loggedin"] = true;
+          $_SESSION["name"] = $name;
+          $_SESSION["email"] = $email;
         } else {
           echo "<script>alert('Oops! Something went wrong. Please try again later.')</script>";
         }
         $stmt->close();
+      } else {
+        $_SESSION['error'] = $name_err.' '.$email_err.' '.$password_err;
       }
     }
     $mysqli->close();
   }
+  header("location: index.php");
 ?>
 

@@ -2,7 +2,7 @@
   --primary-color: #0d47a1;
 }
 .content {
-  padding: 2rem 0rem;
+  padding: 2rem .5rem;
 }
 .text-center {
   text-align: center;
@@ -11,5 +11,8 @@
 @media (min-width: 561px) {
   .nav-wrapper {
     padding: 0 1rem;
+  }
+  .content {
+    padding: 2rem 1rem;
   }
 }

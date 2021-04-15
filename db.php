@@ -1,4 +1,4 @@
 <?php
-    $mysqli = new mysqli("localhost", "shopmanager", "root", "1234");
+    $mysqli = new mysqli("localhost", "root", "1234", "shopmanager");
 ?>
 

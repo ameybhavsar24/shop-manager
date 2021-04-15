@@ -1,6 +1,15 @@
 <?php
-  session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+session_start();
+// var_dump($_SESSION);
+if (!isset($_SESSION['loggedin'])) {
   $_SESSION['loggedin'] = false;
+}
+if (!isset($_SESSION['error'])) {
+  $_SESSION['error'] = '';
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -24,83 +33,29 @@
       }
     ?>
     <div class="content">
-    <div class="container">
-    <div class="row">
-      <div class="col s12 m6">
-        <div class="row">
-          <div class="col s12">
-            <h5 class="text-center">Login</h5>
-          </div>
-        <form class="col s12" action="./login.php" method="POST">
-            <div class="row">
-              <div class="input-field col s12">
-                <i class="material-icons prefix">email</i>
-                <input id="email" type="email" class="validate">
-                <label for="email">Email</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <i class="material-icons prefix">lock</i>
-                <input id="password" type="password" class="validate">
-                <label for="password">Password</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12 offset-m1">
-              <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                <i class="material-icons right">send</i>
-              </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="col s12 m6">
-        <div class="row">
-          <div class="col s12">
-            <h5 class="text-center">Register</h5>
-          </div>
-        <form class="col s12">
-            <div class="row">
-              <div class="input-field col s12">
-                <i class="material-icons prefix">account_circle</i>
-                <input name="name_register" id="name_register" type="text" class="validate">
-                <label for="name_register">Name</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <i class="material-icons prefix">email</i>
-                <input id="email_register" type="email" class="validate">
-                <label for="email_register">Email</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <i class="material-icons prefix">lock</i>
-                <input id="password_register" type="password" class="validate">
-                <label for="password_register">Password</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12 offset-m1">
-              <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                <i class="material-icons right">send</i>
-              </button>
-              </div>
-            </div>
-          </form>
-
-        </div>
-      </div>
-    </div>
-    </div>
+    <?php
+     if ($_SESSION['loggedin']) {
+       ?>
+      <h4>Welcome <?= $_SESSION['name'] ?></h4>
+      <?php
+     } else {
+       include_once('./forms.php');
+     }
+     ?>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
     <script src="js/materialize.min.js"></script>
     <script src="js/main.js"></script>
+    <?php
+      if (!empty($_SESSION['error'])) {
+      ?>
+      <script>
+        alert('<?= $_SESSION['error'] ?>');
+      </script>
+      <?php
+      }
+    ?>
   </body>
 </html>
 
