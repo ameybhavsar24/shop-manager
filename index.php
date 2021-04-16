@@ -5,10 +5,10 @@ error_reporting(E_ALL);
 session_start();
 // var_dump($_SESSION);
 if (!isset($_SESSION['loggedin'])) {
-  $_SESSION['loggedin'] = false;
+    $_SESSION['loggedin'] = false;
 }
 if (!isset($_SESSION['error'])) {
-  $_SESSION['error'] = '';
+    $_SESSION['error'] = '';
 }
 ?>
 <!doctype html>
@@ -25,22 +25,20 @@ if (!isset($_SESSION['error'])) {
     <title>Hello, world!</title>
   </head>
   <body>
-    <?php
-      if ($_SESSION['loggedin']) {
-        include_once('nav_user.php');
-      } else {
-        include_once('nav.php');
-      }
-    ?>
+    <?php if ($_SESSION['loggedin']) {
+        include_once 'nav_user.php';
+    } else {
+        include_once 'nav.php';
+    } ?>
     <div class="content">
-    <?php
-     if ($_SESSION['loggedin']) {
-     include_once('./view_items.php');
-       ?>
+    <?php if ($_SESSION['loggedin']) {
+        include_once './view_items.php'; ?>
        <div class="row">
          <div class="col s12 m2">
            <div class="row">
-            <div class="col s12"><h4 class="flow-text">Welcome <?= $_SESSION['name'] ?></h4></div>
+            <div class="col s12"><h4 class="flow-text">Welcome <?= $_SESSION[
+                'name'
+            ] ?></h4></div>
              <div class="col s12">
                <button class="btn modal-trigger waves-effect blue darken-4 " data-target="modal-add-item">
                  <i class="material-icons right">add_box</i>
@@ -99,18 +97,17 @@ if (!isset($_SESSION['error'])) {
                  </tr>
                </thead>
                <tbody>
-               <?php
-               foreach($_SESSION['items'] as $index=>$item) {
-               ?>
+               <?php foreach ($_SESSION['items'] as $index => $item) { ?>
                  <tr>
                    <td><?= $item['name'] ?></td>
                    <td>&#8377;<?= $item['price'] ?></td>
                    <td><?= $item['quantity'] ?></td>
                    <td>
-                     <?php
-                       if ($item['priceType'] == 'weight') echo 'price per kg';
-                       else echo 'price per piece';
-                     ?>
+                     <?php if ($item['priceType'] == 'weight') {
+                         echo 'price per kg';
+                     } else {
+                         echo 'price per piece';
+                     } ?>
                    </td>
                    <td style="white-space:nowrap">
                    <form method="POST" action="edit_item.php">
@@ -126,22 +123,36 @@ if (!isset($_SESSION['error'])) {
                                <input type="hidden" name="editItem" value=<?= $index ?> >
 
                                 <div class="input-field col s12">
-                                  <input id="item_name_edit<?= $index ?>" name="name" type="text" class="validate" data-length="120" value="<?= $item['name'] ?>" required autofocus>
+                                  <input id="item_name_edit<?= $index ?>" name="name" type="text" class="validate" data-length="120" value="<?= $item[
+    'name'
+] ?>" required autofocus>
                                   <label for="item_name_edit<?= $index ?>">Name</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                  <input id="item_quantity_edit<?= $index ?>" name="quantity" type="number" class="validate" value=<?= $item['quantity'] ?> min=1 required>
+                                  <input id="item_quantity_edit<?= $index ?>" name="quantity" type="number" class="validate" value=<?= $item[
+    'quantity'
+] ?> min=1 required>
                                   <label for="item_quantity_edit<?= $index ?>">Quantity</label>
                                 </div>
                                 <div class="input-field col s12 m4">
                                  <i class="material-icons prefix" >&#8377;</i>
-                                  <input id="item_price_edit<?= $index ?>" name="price" type="number" class="validate" value=<?= $item['price'] ?> min=0 required>
+                                  <input id="item_price_edit<?= $index ?>" name="price" type="number" class="validate" value=<?= $item[
+    'price'
+] ?> min=0 required>
                                   <label for="item_price_edit<?= $index ?>">Price in </label>
                                 </div>
                                 <div class="input-field col s12 m4">
                                   <select name="priceType" required>
-                                    <option value="weight" <?php if ($item['priceType'] == 'weight') echo 'selected'; ?> >Price by weight (kg)</option>
-                                    <option value="piece" <?php if ($item['priceType'] == 'piece') echo 'selected'; ?> >Price by piece (N)</option>
+                                    <option value="weight" <?php if (
+                                        $item['priceType'] == 'weight'
+                                    ) {
+                                        echo 'selected';
+                                    } ?> >Price by weight (kg)</option>
+                                    <option value="piece" <?php if (
+                                        $item['priceType'] == 'piece'
+                                    ) {
+                                        echo 'selected';
+                                    } ?> >Price by piece (N)</option>
                                   </select>
                                   <label>Unit of price</label>
                                 </div>
@@ -154,15 +165,13 @@ if (!isset($_SESSION['error'])) {
                              </form>
                            </div>
                          </div>
-                         <button data-position="bottom" data-tooltip="Delete this item" class="btn btn-floating waves-effect blue darken-4 white-text tooltipped" type="submit" formaction="./delete_item.php" name="deleteItem" value=<?= (int)$index ?>><i class="material-icons left">delete</i> Delete </button>
+                         <button data-position="bottom" data-tooltip="Delete this item" class="btn btn-floating waves-effect blue darken-4 white-text tooltipped" type="submit" formaction="./delete_item.php" name="deleteItem" value=<?= (int) $index ?>><i class="material-icons left">delete</i> Delete </button>
                        </div>
                      </div>
                    </form>
                    </td>
                  </tr>
-               <?php
-               }
-               ?>
+               <?php } ?>
                </tbody>
                </table>
              </div>
@@ -171,24 +180,19 @@ if (!isset($_SESSION['error'])) {
        </div>
 
       <?php
-     } else {
-       include_once('./forms.php');
-     }
-     ?>
+    } else {
+        include_once './forms.php';
+    } ?>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
     <script src="lib/materialize/materialize.min.js"></script>
     <script src="js/main.js"></script>
-    <?php
-      if (!empty($_SESSION['error'])) {
-      ?>
+    <?php if (!empty($_SESSION['error'])) { ?>
       <script>
         alert('<?= $_SESSION['error'] ?>');
       </script>
-      <?php
-      }
-    ?>
+      <?php } ?>
   </body>
 </html>
 
