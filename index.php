@@ -67,7 +67,7 @@ if (!isset($_SESSION['error'])) {
                     <div class="input-field col s12 m4">
                       <select name="priceType" required>
                         <option value="weight" selected>Price by weight (kg)</option>
-                        <option value="price">Price by piece (N)</option>
+                        <option value="piece">Price by piece (N)</option>
                       </select>
                       <label>Unit of price</label>
                     </div>
@@ -113,16 +113,18 @@ if (!isset($_SESSION['error'])) {
                      ?>
                    </td>
                    <td style="white-space:nowrap">
-                   <form method="POST">
+                   <form method="POST" action="edit_item.php">
                      <div class="row">
                        <div class="col s12">
                          <a class="btn btn-floating blue darken-4 white-text modal-trigger" href="#edit-item-<?= $index ?>"><i class="material-icons left">edit</i> Edit</a>
                          <div class="modal modal-edit" id="edit-item-<?= $index ?>">
                            <div class="modal-content">
-                             <form method="POST" action="edit_item.php">
                              <div class="modal-content">
                                <h5 class="text-center">Edit item</h5>
                                <div class="row" method="POST">
+
+                               <input type="hidden" name="editItem" value=<?= $index ?> >
+
                                 <div class="input-field col s12">
                                   <input id="item_name_edit<?= $index ?>" name="name" type="text" class="validate" data-length="120" value="<?= $item['name'] ?>" required autofocus>
                                   <label for="item_name_edit<?= $index ?>">Name</label>
@@ -139,7 +141,7 @@ if (!isset($_SESSION['error'])) {
                                 <div class="input-field col s12 m4">
                                   <select name="priceType" required>
                                     <option value="weight" <?php if ($item['priceType'] == 'weight') echo 'selected'; ?> >Price by weight (kg)</option>
-                                    <option value="price" <?php if ($item['priceType'] == 'piece') echo 'selected'; ?> >Price by piece (N)</option>
+                                    <option value="piece" <?php if ($item['priceType'] == 'piece') echo 'selected'; ?> >Price by piece (N)</option>
                                   </select>
                                   <label>Unit of price</label>
                                 </div>
