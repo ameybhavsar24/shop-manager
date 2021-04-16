@@ -7,6 +7,9 @@
 .text-center {
   text-align: center;
 }
+#mobile-demo {
+  padding-top: 56px;
+}
 /* styles for desktop screens */
 @media (min-width: 561px) {
   .nav-wrapper {
