@@ -52,20 +52,20 @@ if (!isset($_SESSION['error'])) {
                    <h5 class="text-center">Add a new item</h5>
                    <div class="row" method="POST">
                     <div class="input-field col s12">
-                      <input id="item_name" name="name" type="text" class="validate" data-length="120">
+                      <input id="item_name" name="name" type="text" class="validate" data-length="120" required autofocus>
                       <label for="item_name">Name</label>
                     </div>
                     <div class="input-field col s12 m4">
-                      <input id="item_quantity" name="quantity" type="number" class="validate" value=1 min=1>
+                      <input id="item_quantity" name="quantity" type="number" class="validate" value=1 min=1 required>
                       <label for="item_quantity">Quantity</label>
                     </div>
                     <div class="input-field col s12 m4">
                      <i class="material-icons prefix" >&#8377;</i>
-                      <input id="item_price" name="price" type="number" class="validate" value=0 min=0>
+                      <input id="item_price" name="price" type="number" class="validate" value=0 min=0 required>
                       <label for="item_price">Price in </label>
                     </div>
                     <div class="input-field col s12 m4">
-                      <select name="priceType">
+                      <select name="priceType" required>
                         <option value="weight" selected>Price by weight (kg)</option>
                         <option value="price">Price by piece (N)</option>
                       </select>
@@ -74,7 +74,7 @@ if (!isset($_SESSION['error'])) {
                    </div>
                  </div>
                  <div class="modal-footer">
-                   <button class="btn waves-effect modal-close grey">Cancel</button>
+                   <button class="btn waves-effect modal-close grey" type="button">Cancel</button>
                    <button class="btn waves-effect blue darken-4" type="submit">Submit</button>
                  </div>
                  </form>
@@ -124,20 +124,20 @@ if (!isset($_SESSION['error'])) {
                                <h5 class="text-center">Edit item</h5>
                                <div class="row" method="POST">
                                 <div class="input-field col s12">
-                                  <input id="item_name_edit<?= $index ?>" name="name" type="text" class="validate" data-length="120" value="<?= $item['name'] ?>">
+                                  <input id="item_name_edit<?= $index ?>" name="name" type="text" class="validate" data-length="120" value="<?= $item['name'] ?>" required autofocus>
                                   <label for="item_name_edit<?= $index ?>">Name</label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                  <input id="item_quantity_edit<?= $index ?>" name="quantity" type="number" class="validate" value=<?= $item['quantity'] ?> min=1>
+                                  <input id="item_quantity_edit<?= $index ?>" name="quantity" type="number" class="validate" value=<?= $item['quantity'] ?> min=1 required>
                                   <label for="item_quantity_edit<?= $index ?>">Quantity</label>
                                 </div>
                                 <div class="input-field col s12 m4">
                                  <i class="material-icons prefix" >&#8377;</i>
-                                  <input id="item_price_edit<?= $index ?>" name="price" type="number" class="validate" value=<?= $item['price'] ?> min=0>
+                                  <input id="item_price_edit<?= $index ?>" name="price" type="number" class="validate" value=<?= $item['price'] ?> min=0 required>
                                   <label for="item_price_edit<?= $index ?>">Price in </label>
                                 </div>
                                 <div class="input-field col s12 m4">
-                                  <select name="priceType">
+                                  <select name="priceType" required>
                                     <option value="weight" <?php if ($item['priceType'] == 'weight') echo 'selected'; ?> >Price by weight (kg)</option>
                                     <option value="price" <?php if ($item['priceType'] == 'piece') echo 'selected'; ?> >Price by piece (N)</option>
                                   </select>
@@ -146,13 +146,13 @@ if (!isset($_SESSION['error'])) {
                                </div>
                              </div>
                              <div class="modal-footer">
-                               <button class="btn waves-effect modal-close grey">Cancel</button>
+                               <button class="btn waves-effect modal-close grey" type="button">Cancel</button>
                                <button class="btn waves-effect blue darken-4" type="submit">Submit</button>
                              </div>
                              </form>
                            </div>
                          </div>
-                         <button data-position="bottom" data-tooltip="Delete this item" class="btn btn-floating waves-effect blue darken-4 white-text tooltipped" type="submit" formaction="./delete_item.php" name="deleteItem" value=<?= $index ?>><i class="material-icons left">delete</i> Delete </button>
+                         <button data-position="bottom" data-tooltip="Delete this item" class="btn btn-floating waves-effect blue darken-4 white-text tooltipped" type="submit" formaction="./delete_item.php" name="deleteItem" value=<?= (int)$index ?>><i class="material-icons left">delete</i> Delete </button>
                        </div>
                      </div>
                    </form>
