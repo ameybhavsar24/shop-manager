@@ -20,7 +20,7 @@ if (!isset($_SESSION['error'])) {
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Materialize CSS -->
-    <link href="css/materialize.min.css" rel="stylesheet" />
+    <link href="lib/materialize/materialize.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
     <title>Hello, world!</title>
   </head>
@@ -178,7 +178,7 @@ if (!isset($_SESSION['error'])) {
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-    <script src="js/materialize.min.js"></script>
+    <script src="lib/materialize/materialize.min.js"></script>
     <script src="js/main.js"></script>
     <?php
       if (!empty($_SESSION['error'])) {
