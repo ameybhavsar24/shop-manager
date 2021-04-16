@@ -69,10 +69,7 @@ error_reporting(E_ALL);
 
         // Attempt to exectute the prepared statement
         if ($stmt->execute()) {
-          session_start();
-          $_SESSION["loggedin"] = true;
-          $_SESSION["name"] = $name;
-          $_SESSION["email"] = $email;
+          header("location: index.php?status=1");
         } else {
           echo "<script>alert('Oops! Something went wrong. Please try again later.')</script>";
         }
@@ -83,6 +80,5 @@ error_reporting(E_ALL);
     }
     $mysqli->close();
   }
-  header("location: index.php");
 ?>
 
